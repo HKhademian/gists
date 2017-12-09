@@ -1,0 +1,30 @@
+ext.publishs = [
+	group    : 'ir.hossainco.example',
+	artifact : 'project-example',
+	name     : 'Project Example',
+	version  : '1.0.0-example',
+
+	bintray  : [
+		repo: 'maven',
+		org: 'hossainco-example',
+		name: 'Project Example',
+	],
+
+	des      : 'Example project',
+	site     : 'https://hossainco.github.io/Example',
+	git      : 'https://github.com/HossainCo/Example.git',
+
+	developer: [
+		id   : 'hossainco-example',
+		name : 'HossainCo Example',
+		email: 'hco@post.com',
+	],
+
+	license  : [
+		name: 'MIT License',
+		url : 'https://opensource.org/licenses/MIT',
+		list: [
+			'MIT',
+		],
+	],
+]
