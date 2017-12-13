@@ -103,32 +103,23 @@ afterEvaluate { project ->
 	def isAndroidApplication = project.plugins.hasPlugin('com.android.application')
 	def isAndroidLibrary = project.plugins.hasPlugin('com.android.library')
 	def isAndroidProject = isAndroidApplication || isAndroidLibrary
+	def outFileType = isAndroidLibrary ? 'arr' : isAndroidProject ? 'apk' : 'jar'
 
 	if (isAndroidProject) {
+		project.android.applicationVariants.all { variant ->
+			variant.outputs.each { output ->
+				output.outputFile = new File(
+					output.outputFile.parent,
+					output.outputFile.name.replace(".$outFileType", "-${variant.versionName}.$outFileType"))
+			}
+		}
+
 		def releaseVariants = project.android.libraryVariants.findAll {
 			it.buildType.name.equalsIgnoreCase('release')
 		}
 
-		if (isAndroidLibrary)
-			project.android.libraryVariants.all { variant ->
-				variant.outputs.each { output ->
-					output.outputFile = new File(
-						output.outputFile.parent,
-						//output.outputFile.name.replace(".aar", "-${variant.versionName}.aar"))
-						output.outputFile.name.replace(".aar", "-${publishs.version}.aar"))
-				}
-			}
-		else if (isAndroidProject)
-			project.android.libraryVariants.all { variant ->
-				variant.outputs.each { output ->
-					output.outputFile = new File(
-						output.outputFile.parent,
-						//output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
-						output.outputFile.name.replace(".apk", "-${publishs.version}.apk"))
-				}
-			}
-
 		def getAndroidSdkDirectory = project.android.sdkDirectory
+
 		def getAndroidJar = "${getAndroidSdkDirectory}/platforms/${project.android.compileSdkVersion}/android.jar"
 
 		task androidJavadocs(type: Javadoc, dependsOn: assembleRelease) {
