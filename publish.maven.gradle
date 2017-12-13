@@ -103,13 +103,14 @@ afterEvaluate { project ->
 	def isAndroidApplication = project.plugins.hasPlugin('com.android.application')
 	def isAndroidLibrary = project.plugins.hasPlugin('com.android.library')
 	def isAndroidProject = isAndroidApplication || isAndroidLibrary
-	def outFileType = isAndroidLibrary ? 'arr' : isAndroidProject ? 'apk' : 'jar'
 
 	if (isAndroidProject) {
-		project.android.applicationVariants.all { variant ->
+		def outFileType = isAndroidLibrary ? 'arr' : 'apk'
+		def variants = isAndroidLibrary ? project.android.libraryVariants : project.android.applicationVariants
+
+		variants.all { variant ->
 			variant.outputs.each { output ->
-				output.outputFile = new File(
-					output.outputFile.parent,
+				output.outputFile = new File(output.outputFile.parent,
 					output.outputFile.name.replace(".$outFileType", "-${variant.versionName}.$outFileType"))
 			}
 		}
