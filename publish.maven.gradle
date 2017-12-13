@@ -89,7 +89,7 @@ afterEvaluate { project ->
 							}
 						}
 					}
-					
+
 				}
 			}
 		}
@@ -138,13 +138,13 @@ afterEvaluate { project ->
 		task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
 			classifier = 'javadoc'
 			from androidJavadocs.destinationDir
-			baseName "${publishs.jar.prefix}${project.name}${publishs.jar.postfix}"
+			baseName "${publishs.jar.prefix}${project.name}${publishs.jar.postfix}-${publishs.version}"
 		}
 
 		task androidSourcesJar(type: Jar) {
 			classifier = 'sources'
 			from project.android.sourceSets.main.java.source
-			baseName "${publishs.jar.prefix}${project.name}${publishs.jar.postfix}"
+			baseName "${publishs.jar.prefix}${project.name}${publishs.jar.postfix}-${publishs.version}"
 		}
 
 		task androidLibraryJar(type: Jar, dependsOn: compileReleaseJavaWithJavac /* == variant.javaCompile */) {
@@ -152,7 +152,7 @@ afterEvaluate { project ->
 			exclude '**/R.class'
 			exclude '**/BuildConfig.class'
 			exclude '**/R$*.class'
-			baseName "${publishs.jar.prefix}${project.name}${publishs.jar.postfix}"
+			baseName "${publishs.jar.prefix}${project.name}${publishs.jar.postfix}-${publishs.version}"
 		}
 
 		artifacts {
