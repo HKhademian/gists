@@ -111,14 +111,14 @@ afterEvaluate { project ->
 			project.android.libraryVariants.all { variant ->
 				variant.outputs.each { output ->
 					output.outputFile = new File(output.outputFile.parent,
-						output.outputFile.name.replace(".$outFileType", "-${variant.versionName}.$outFileType"))
+						output.outputFile.name.replace(".$outFileType", "-${publishs.version}.$outFileType"))
 				}
 			}
 		else
 			project.android.applicationVariants.all { variant ->
 				variant.outputs.each { output ->
 					output.outputFile = new File(output.outputFile.parent,
-						output.outputFile.name.replace(".$outFileType", "-${variant.versionName}.$outFileType"))
+						output.outputFile.name.replace(".$outFileType", "-${publishs.version}.$outFileType"))
 				}
 			}
 
