@@ -1,42 +1,190 @@
-//apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'maven'
+apply plugin: 'signing'
 
+version = publishs.version
 group = publishs.group
 
-install {
-	repositories.mavenInstaller {
-		// This generates POM.xml with proper parameters
-		pom {
-			project {
-				packaging publishs.jar
-				groupId publishs.group
-				artifactId publishs.artifact
+//static def localMavenRepo() {
+//	'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+//}
+//
+@SuppressWarnings("GrMethodMayBeStatic")
+def isReleaseBuild() {
+	return !publishs.version.contains("SNAPSHOT")
+}
+//
+//def getReleaseRepositoryUrl() {
+//	return hasProperty('LOCAL') ? localMavenRepo()
+//		: hasProperty('RELEASE_REPOSITORY_URL') ? RELEASE_REPOSITORY_URL
+//		: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+//}
+//
+//def getSnapshotRepositoryUrl() {
+//	return hasProperty('LOCAL') ? localMavenRepo()
+//		: hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
+//		: 'https://oss.sonatype.org/content/repositories/snapshots/'
+//}
+//
+//def getRepositoryUsername() {
+//	return hasProperty('USERNAME') ? USERNAME : (hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : '')
+//}
+//
+//def getRepositoryPassword() {
+//	return hasProperty('PASSWORD') ? PASSWORD : (hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : '')
+//}
 
-				// Add your description here
-				name publishs.name
-				description publishs.des
-				url publishs.site
+afterEvaluate { project ->
+	uploadArchives {
+		repositories {
+			mavenDeployer {
+//				// allow uploading through FTP protocol with the following command:
+//				// gradle uploadArchives -PSNAPSHOT_REPOSITORY_URL=ftp://host/repo/path -PUSERNAME=uname -PPASSWORD=passwd
+//				configuration = configurations.create('deployerJars')
+//				configuration.dependencies.add dependencies.create('org.apache.maven.wagon:wagon-ftp:2.2')
+//
+//				beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-				// Set your license
-				licenses {
-					license {
-						name publishs.license.name
-						url publishs.license.url
+				pom.groupId = publishs.group
+				pom.artifactId = publishs.artifact
+				pom.version = publishs.version
+
+//				repository(url: getReleaseRepositoryUrl()) {
+//					authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+//				}
+//				snapshotRepository(url: getSnapshotRepositoryUrl()) {
+//					authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+//				}
+//
+//				pom.whenConfigured { pom ->
+//					pom.packaging = POM_PACKAGING
+//				}
+
+				pom.project {
+					name = publishs.name
+					description = publishs.des
+					url = publishs.url
+
+					scm {
+						url publishs.scm.url
+						connection publishs.scm.connection
+						developerConnection publishs.scm.developer
 					}
-				}
-				developers {
-					developer {
-						id publishs.developer.id
-						name publishs.developer.name
-						email publishs.developer.email
+
+					licenses {
+						publishs.licenses.each {
+						//	license {
+						//		name = it.name
+						//		url = it.url
+						//		distribution = it.distribution
+						//	}
+						}
+//						license {
+//							name = 'Simplified BSD License'
+//							url = 'http://www.opensource.org/licenses/bsd-license'
+//							distribution = 'repo'
+//						}
+//						license {
+//							name = 'The Apache Software License, Version 2.0'
+//							url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//							distribution = 'repo'
+//						}
 					}
-				}
-				scm {
-					connection publishs.git
-					developerConnection publishs.git
-					url publishs.site
+
+					developers {
+						publishs.developers.each {
+							//developer {
+							//	id = it.id
+							//	name = it.name
+							//	email = it.email
+							//}
+						}
+					}
 				}
 			}
 		}
 	}
+
+	signing {
+		required { isReleaseBuild() && gradle.taskGraph.hasTask('uploadArchives') }
+		sign configurations.archives
+	}
+
+	def isAndroidProject = project.plugins.hasPlugin('com.android.application') || project.plugins.hasPlugin('com.android.library')
+
+	if (isAndroidProject) {
+		def releaseVariants = project.android.libraryVariants.findAll {
+			it.buildType.name.equalsIgnoreCase('release')
+		}
+
+		def getAndroidSdkDirectory = project.android.sdkDirectory
+
+		def getAndroidJar = "${getAndroidSdkDirectory}/platforms/${project.android.compileSdkVersion}/android.jar"
+
+		task androidJavadocs(type: Javadoc, dependsOn: assembleRelease) {
+			source = releaseVariants.collect { it.javaCompile.source }
+			classpath = files(
+				getAndroidJar,
+				project.file("build/intermediates/classes/release")
+			)
+			doFirst {
+				classpath += files(releaseVariants.collect { it.javaCompile.classpath.files })
+			}
+			options {
+				links("http://docs.oracle.com/javase/7/docs/api/")
+				linksOffline("http://d.android.com/reference",
+					"${getAndroidSdkDirectory}/docs/reference")
+			}
+
+			exclude '**/BuildConfig.java'
+			exclude '**/R.java'
+		}
+
+		def cleanJavadocTask = task("cleanJavadocTask", type: Delete) {
+			delete androidJavadocs.destinationDir
+		} as Task
+		project.clean.dependsOn(cleanJavadocTask)
+
+		task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+			classifier = 'javadoc'
+			from androidJavadocs.destinationDir
+			baseName "${publishs.jar.prefix}${project.name}${publishs.jar.postfix}"
+		}
+
+		task androidSourcesJar(type: Jar) {
+			classifier = 'sources'
+			from project.android.sourceSets.main.java.source
+			baseName "${publishs.jar.prefix}${project.name}${publishs.jar.postfix}"
+		}
+
+		task androidLibraryJar(type: Jar, dependsOn: compileReleaseJavaWithJavac /* == variant.javaCompile */) {
+			from compileReleaseJavaWithJavac.destinationDir
+			exclude '**/R.class'
+			exclude '**/BuildConfig.class'
+			exclude '**/R$*.class'
+			baseName "${publishs.jar.prefix}${project.name}${publishs.jar.postfix}"
+		}
+
+		artifacts {
+			archives androidLibraryJar
+			archives androidSourcesJar
+			archives androidJavadocsJar
+		}
+	} else if (project.plugins.hasPlugin('java')) {
+		task sourcesJar(type: Jar, dependsOn: classes) {
+			classifier = 'sources'
+			from sourceSets.main.allSource
+		}
+
+		task javadocsJar(type: Jar, dependsOn: javadoc) {
+			classifier = 'javadoc'
+			from javadoc.destinationDir
+		}
+
+		artifacts {
+			archives sourcesJar
+			archives javadocsJar
+		}
+	}
+	logger.info("Published artifacts in ${configurations.archives}:")
+	configurations.archives.artifacts.files.files.each { logger.info("\t$it") }
 }
