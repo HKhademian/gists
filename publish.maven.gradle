@@ -105,23 +105,20 @@ afterEvaluate { project ->
 	def isAndroidProject = isAndroidApplication || isAndroidLibrary
 
 	if (isAndroidProject) {
-		def outFileType = isAndroidLibrary ? 'arr' : 'apk'  
+		def outFileType = isAndroidLibrary ? 'arr' : 'apk'
 
 		if (isAndroidLibrary)
 			project.android.libraryVariants.all { variant ->
 				variant.outputs.each { output ->
-					output.outputFile = new File(output.outputFile.parent,
-						output.outputFile.name.replace(".$outFileType", "-${publishs.version}.$outFileType"))
+					output.outputFileName = output.outputFile.name.replace(".$outFileType", "-${publishs.version}.$outFileType")
 				}
 			}
 		else
 			project.android.applicationVariants.all { variant ->
 				variant.outputs.each { output ->
-					output.outputFile = new File(output.outputFile.parent,
-						output.outputFile.name.replace(".$outFileType", "-${publishs.version}.$outFileType"))
+					output.outputFileName = output.outputFile.name.replace(".$outFileType", "-${publishs.version}.$outFileType")
 				}
 			}
-
 
 		def releaseVariants = project.android.libraryVariants.findAll {
 			it.buildType.name.equalsIgnoreCase('release')
