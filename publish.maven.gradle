@@ -105,7 +105,7 @@ afterEvaluate { project ->
 	def isAndroidProject = isAndroidApplication || isAndroidLibrary
 
 	if (isAndroidProject) {
-		def outFileType = isAndroidLibrary ? 'arr' : 'apk'
+		def outFileType = isAndroidLibrary ? 'arr' : 'apk'  
 
 		if (isAndroidLibrary)
 			project.android.libraryVariants.all { variant ->
