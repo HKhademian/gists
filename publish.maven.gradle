@@ -71,34 +71,25 @@ afterEvaluate { project ->
 					}
 
 					licenses {
-						publishs.licenses.each {
-						//	license {
-						//		name = it.name
-						//		url = it.url
-						//		distribution = it.distribution
-						//	}
+						publishs.licenses.each { item ->
+							if (item != null) license {
+								name = item.name
+								url = item.url
+								distribution = item.distribution
+							}
 						}
-//						license {
-//							name = 'Simplified BSD License'
-//							url = 'http://www.opensource.org/licenses/bsd-license'
-//							distribution = 'repo'
-//						}
-//						license {
-//							name = 'The Apache Software License, Version 2.0'
-//							url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-//							distribution = 'repo'
-//						}
 					}
 
 					developers {
-						publishs.developers.each {
-							//developer {
-							//	id = it.id
-							//	name = it.name
-							//	email = it.email
-							//}
+						publishs.developers.each {item->
+							if (item != null) developer {
+								id = item.id
+								name = item.name
+								email = item.email
+							}
 						}
 					}
+					
 				}
 			}
 		}
