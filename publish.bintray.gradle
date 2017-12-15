@@ -1,5 +1,7 @@
 apply plugin: 'com.jfrog.bintray'
 
+def publishs = project.ext.publishs
+
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
@@ -8,6 +10,7 @@ bintray {
 	key = properties.getProperty('publish.bintray.apikey')
 
 	configurations = ['archives']
+
 	pkg {
 		repo = publishs.bintray.repo
 		name = publishs.bintray.name
