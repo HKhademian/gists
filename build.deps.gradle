@@ -1,0 +1,101 @@
+apply from: 'build.versions.gradle'
+
+rootProject.ext {
+	def dep = { group, artifact, version -> "$group:$artifact:$version" }
+	
+	deps = [
+		build_gradle: dep('com.android.tools.build', 'gradle', versions.build_gradle),
+		junit       : dep('junit', 'junit', versions.junit),
+		
+		hossainco   : [
+			rxbus2   : dep('com.github.HossainCo', 'RxBus2', versions.hossainco.rxbus2),
+			liveevent: dep('com.github.HossainCo', 'LiveEvent', versions.hossainco.liveevent),
+			prefkot  : dep('com.github.HossainCo', 'PrefKot', versions.hossainco.prefkot),
+		],
+		
+		bintray     : [
+			gradle_plugin: dep('com.jfrog.bintray.gradle', 'gradle-bintray-plugin', versions.bintray.version),
+		],
+		
+		support     : [
+			v4               : dep('com.android.support', 'support-v4', versions.support.version),
+			appcompat        : dep('com.android.support', 'appcompat-v7', versions.support.version),
+			design           : dep('com.android.support', 'design', versions.support.version),
+			vector_drawable  : dep('com.android.support', 'support-vector-drawable', versions.support.version),
+			constraint_layout: dep('com.android.constraint', 'constraint-layout', versions.support.version),
+			
+			test             : [
+				runner  : dep('com.android.support.test', 'runner', versions.support.test.runner),
+				espresso: [
+					core: dep('com.android.support.test.espresso', 'espresso-core', versions.support.test.espresso.core),
+				],
+			],
+		],
+		
+		kotlin      : [
+			gradle_plugin: dep('org.jetbrains.kotlin', 'kotlin-gradle-plugin', versions.kotlin.version),
+			stdlib       : dep('org.jetbrains.kotlin', 'kotlin-stdlib', versions.kotlin.version),
+			
+			anko         : [
+				dep              : dep('org.jetbrains.anko', 'anko', versions.kotlin.anko),
+				coroutines       : dep('org.jetbrains.anko', 'anko-coroutines', versions.kotlin.anko),
+				appcompat        : dep('org.jetbrains.anko', 'anko-appcompat', versions.kotlin.anko),
+				design           : dep('org.jetbrains.anko', 'anko-design', versions.kotlin.anko),
+				design_coroutines: dep('org.jetbrains.anko', 'anko-design-coroutines', versions.kotlin.anko),
+				support_v4       : dep('org.jetbrains.anko', 'anko-support-v4', versions.kotlin.anko),
+			]
+		],
+		
+		/** Android Architecture Libraries: https://developer.android.com/topic/libraries/architecture */
+		arch        : [
+			/* LifeCycle: https://developer.android.com/topic/libraries/architecture/lifecycle.html */
+			lifecycle: [
+				core_testing   : dep('android.arch.core', 'core-testing', versions.arch.version),
+				runtime        : dep('android.arch.lifecycle', 'runtime', versions.arch.lifecycle.runtime),
+				compiler       : dep('android.arch.lifecycle', 'compiler', versions.arch.lifecycle.compiler),
+				common_java8   : dep('android.arch.lifecycle', 'common-java8', versions.arch.lifecycle.common_java8),
+				/* LiveData: https://developer.android.com/topic/libraries/architecture/livedata.html */
+				/* ViewModel: https://developer.android.com/topic/libraries/architecture/viewmodel.html */
+				extensions     : dep('android.arch.lifecycle', 'extensions', versions.arch.lifecycle.extensions),
+				reactivestreams: dep('android.arch.lifecycle', 'reactivestreams', versions.arch.lifecycle.reactivestreams),
+			],
+			
+			/* Room: https://developer.android.com/topic/libraries/architecture/room.html */
+			room     : [
+				runtime : dep('android.arch.persistence.room', 'runtime', versions.arch.room),
+				rxjava2 : dep('android.arch.persistence.room', 'rxjava2', versions.arch.room),
+				compiler: dep('android.arch.persistence.room', 'compiler', versions.arch.room),
+				testing : dep('android.arch.persistence.room', 'testing', versions.arch.room),
+			],
+			
+			/* Paging: https://developer.android.com/topic/libraries/architecture/paging.html */
+			paging   : dep('android.arch.paging', 'runtime', versions.arch.paging),
+		],
+		
+		/** ReactiveX */
+		rx2         : [
+			/* RxJava: https://github.com/ReactiveX/RxJava */
+			java           : dep('io.reactivex.rxjava2', 'rxjava', versions.rx2.java),
+			/* RxKotlin: https://github.com/ReactiveX/RxKotlin */
+			kotlin         : dep('io.reactivex.rxjava2', 'rxkotlin', versions.rx2.kotlin),
+			/* RxAndroid: https://github.com/ReactiveX/RxAndroid */
+			android        : dep('io.reactivex.rxjava2', 'rxandroid', versions.rx2.android),
+			
+			/* RxBinding: https://github.com/JakeWharton/RxBinding */
+			binding        : [
+				dep                : dep('com.jakewharton.rxbinding2', 'rxbinding', versions.rx2.binding),
+				kotlin             : dep('com.jakewharton.rxbinding2', 'rxbinding-kotlin', versions.rx2.binding),
+				appcompat_v7       : dep('com.jakewharton.rxbinding2', 'rxbinding-appcompat-v7', versions.rx2.binding),
+				appcompat_v7_kotlin: dep('com.jakewharton.rxbinding2', 'rxbinding-appcompat-v7-kotlin', versions.rx2.binding),
+			],
+			
+			/* ReactiveNetwork: https://github.com/pwittchen/ReactiveNetwork */
+			reactivenetwork: dep('com.github.pwittchen', 'reactivenetwork-rx2', versions.rx2.reactivenetwork),
+			/* RxDownloader: https://github.com/oussaki/ */
+			downloader     : dep('com.github.oussaki', 'RxDownloader', versions.rx2.downloader),
+			/* RxDataBinding: https://github.com/oldergod/RxDataBinding */
+			databinding    : dep('com.benoitquenaudon', 'rxdatabinding', versions.rx2.databinding),
+		],
+	
+	]
+}
