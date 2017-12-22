@@ -1,0 +1,115 @@
+apply from: 'https://raw.githubusercontent.com/HossainCo/gists/master/deps.pack.gradle'
+
+rootProject.ext {
+	def classpath = { pack -> { -> project.buildscript.dependencies.classpath pack } }
+	def packs = depsPack
+	
+	def add = { String confDef ->
+		{ pack ->
+			{ String variant = null, String config = null ->
+				def conf = config ? config : confDef
+				def confer = variant != null && variant.length() > 0 ? variant + conf.capitalize() : conf
+				project.dependencies.add confer, pack
+			}
+		}
+	}
+	def implementation = add 'implementation'
+	def kapt = add 'kapt'
+	
+	deps = [
+		build_gradle: classpath(packs.build_gradle),
+		android_maven: classpath(packs.android_maven),
+		junit       : implementation(packs.junit),
+		
+		hossainco   : [
+			rxbus2   : implementation(packs.hossainco.rxbus2),
+			liveevent: implementation(packs.hossainco.liveevent),
+			prefkot  : implementation(packs.hossainco.prefkot),
+		],
+		
+		bintray     : [
+			gradle_plugin: classpath(packs.bintray.gradle_plugin),
+		],
+		
+		support     : [
+			v4               : implementation(packs.support.v4),
+			appcompat        : implementation(packs.support.appcompat),
+			design           : implementation(packs.support.design),
+			vector_drawable  : implementation(packs.support.vector_drawable),
+			constraint_layout: implementation(packs.support.constraint_layout),
+			
+			test             : [
+				runner  : implementation(packs.support.test.runner),
+				espresso: [
+					core: implementation(packs.support.test.espresso.core),
+				],
+			],
+		],
+		
+		kotlin      : [
+			gradle_plugin: classpath(packs.kotlin.gradle_plugin),
+			stdlib       : implementation(packs.kotlin.stdlib),
+			
+			anko         : [
+				dep              : implementation(packs.kotlin.anko.dep),
+				coroutines       : implementation(packs.kotlin.anko.coroutines),
+				appcompat        : implementation(packs.kotlin.anko.appcompat),
+				design           : implementation(packs.kotlin.anko.design),
+				design_coroutines: implementation(packs.kotlin.anko.design_coroutines),
+				support_v4       : implementation(packs.kotlin.anko.support_v4),
+			]
+		],
+		
+		/** Android Architecture Libraries: https://developer.android.com/topic/libraries/architecture */
+		arch        : [
+			/* LifeCycle: https://developer.android.com/topic/libraries/architecture/lifecycle.html */
+			lifecycle: [
+				core_testing   : implementation(packs.arch.lifecycle.core_testing),
+				runtime        : implementation(packs.arch.lifecycle.runtime),
+				compiler       : kapt(packs.arch.lifecycle.compiler),
+				common_java8   : implementation(packs.arch.lifecycle.common_java8),
+				/* LiveData: https://developer.android.com/topic/libraries/architecture/livedata.html */
+				/* ViewModel: https://developer.android.com/topic/libraries/architecture/viewmodel.html */
+				extensions     : implementation(packs.arch.lifecycle.extensions),
+				reactivestreams: implementation(packs.arch.lifecycle.reactivestreams),
+			],
+			
+			/* Room: https://developer.android.com/topic/libraries/architecture/room.html */
+			room     : [
+				runtime : implementation(packs.arch.room.runtime),
+				rxjava2 : implementation(packs.arch.room.rxjava2),
+				compiler: implementation(packs.arch.room.compiler),
+				testing : implementation(packs.arch.room.testing),
+			],
+			
+			/* Paging: https://developer.android.com/topic/libraries/architecture/paging.html */
+			paging   : implementation(packs.arch.paging),
+		],
+		
+		/** ReactiveX */
+		rx2         : [
+			/* RxJava: https://github.com/ReactiveX/RxJava */
+			java           : implementation(packs.rx2.java),
+			/* RxKotlin: https://github.com/ReactiveX/RxKotlin */
+			kotlin         : implementation(packs.rx2.kotlin),
+			/* RxAndroid: https://github.com/ReactiveX/RxAndroid */
+			android        : implementation(packs.rx2.android),
+			
+			/* RxBinding: https://github.com/JakeWharton/RxBinding */
+			binding        : [
+				dep                : implementation(packs.rx2.binding.dep),
+				kotlin             : implementation(packs.rx2.binding.kotlin),
+				appcompat_v7       : implementation(packs.rx2.binding.appcompat_v7),
+				appcompat_v7_kotlin: implementation(packs.rx2.binding.appcompat_v7_kotlin),
+			],
+			
+			/* ReactiveNetwork: https://github.com/pwittchen/ReactiveNetwork */
+			reactivenetwork: implementation(packs.rx2.reactivenetwork),
+			/* RxDownloader: https://github.com/oussaki/ */
+			downloader     : implementation(packs.rx2.downloader),
+			/* RxDataBinding: https://github.com/oldergod/RxDataBinding */
+			databinding    : implementation(packs.rx2.databinding),
+		],
+	
+	]
+}

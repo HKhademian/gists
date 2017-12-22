@@ -1,30 +1,52 @@
-ext.publishs = [
-	group    : 'ir.hossainco.example',
-	artifact : 'project-example',
-	name     : 'Project Example',
-	version  : '1.0.0-example',
+project.ext {
+	publishs = [
+		group            : 'ir.hossainco.example',
+		artifact         : 'project-example',
+		name             : 'Project Example',
+		version          : '1.0.0-example',
+		des              : 'Example project',
+		url              : 'https://hossainco.github.io/Example',
 
-	bintray  : [
-		repo: 'maven',
-		org: 'hossainco-example',
-		name: 'Project Example',
-	],
-
-	des      : 'Example project',
-	site     : 'https://hossainco.github.io/Example',
-	git      : 'https://github.com/HossainCo/Example.git',
-
-	developer: [
-		id   : 'hossainco-example',
-		name : 'HossainCo Example',
-		email: 'hco@post.com',
-	],
-
-	license  : [
-		name: 'MIT License',
-		url : 'https://opensource.org/licenses/MIT',
-		list: [
-			'MIT',
+		jar              : [
+			prefix : '',
+			postfix: '',
 		],
-	],
-]
+
+		bintray          : [
+			repo: 'maven',
+			org : 'hossainco',
+			name: 'CommonKotlin',
+		],
+
+		scm              : [
+			url                : 'https://github.com/HossainCo/Example/',
+			connection         : 'scm:git:https://github.com/HossainCo/Example.git',
+			developerConnection: 'scm:git:ssh:git@github.com:HossainCo/Example.git',
+		],
+
+		developers       : [
+			[
+				id   : 'hossainco-example',
+				name : 'HossainCo Example',
+				email: 'example@hossainco.test',
+			],
+		],
+
+		licenses         : [
+			[
+				name: 'MIT License',
+				url : 'https://opensource.org/licenses/MIT',
+				list: [
+					'MIT',
+				],
+				distribution: 'repo',
+			],
+		],
+
+		removeDependecies: [
+			'some.dep.group.to.remove:dep-art:dep-version',
+			'some.dep.group.to.remove:*:*',
+			'*:dep-art:*',
+		],
+	]
+}

@@ -1,10 +1,12 @@
-apply from: 'build.versions.gradle'
+apply from: 'https://raw.githubusercontent.com/HossainCo/gists/master/deps.version.gradle'
 
 rootProject.ext {
 	def dep = { group, artifact, version -> "$group:$artifact:$version" }
-	
-	deps = [
+	def versions = depsVersion
+
+	depsPack = [
 		build_gradle: dep('com.android.tools.build', 'gradle', versions.build_gradle),
+		android_maven: dep('com.github.dcendents', 'android-maven-gradle-plugin', versions.android_maven),
 		junit       : dep('junit', 'junit', versions.junit),
 		
 		hossainco   : [

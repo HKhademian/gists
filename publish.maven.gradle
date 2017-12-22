@@ -25,9 +25,9 @@ install {
 
 		pom.project {
 			packaging isAndroidLibrary ? 'arr' : isAndroidApplication ? 'apk' : 'jar'
-			groupId publishs.group
-			artifactId publishs.artifact
-			version publishs.version
+			groupId = publishs.group
+			artifactId = publishs.artifact
+			version = publishs.version
 			name = publishs.name
 			description = publishs.des
 			url = publishs.url
@@ -42,9 +42,9 @@ install {
 				}
 			}
 			scm {
-				url publishs.scm.url
-				connection publishs.scm.connection
-				developerConnection publishs.scm.developerConnection
+				url= publishs.scm.url
+				connection =publishs.scm.connection
+				developerConnection= publishs.scm.developerConnection
 			}
 
 			licenses {
