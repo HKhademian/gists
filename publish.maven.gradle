@@ -1,4 +1,5 @@
 import java.util.regex.Pattern
+
 apply plugin: 'com.github.dcendents.android-maven'
 
 def publishs = project.ext.publishs
@@ -20,34 +21,40 @@ install {
 
 		pom.whenConfigured { pom ->
 			pom.packaging = isAndroidLibrary ? 'aar' : isAndroidApplication ? 'apk' : 'jar'
-			//pom.dependencies.removeAll { dep -> dep.artifactId in publishs.removeDependecies }
 
 			def match = { source, target ->
 				if (target instanceof Pattern)
 					return source ==~ target
 				if (target instanceof String)
-					return source.contains(target)
+					return source.equals(target) || source.contains(target)
 				return false
 			}
+			def dependencyKeys = ['groupId', 'artifactId', 'version', 'scope', 'type']
 
+			def depMatch = { source, target ->
+				if (target instanceof Pattern || target instanceof String)
+					return match("${source.groupId}:${source.artifactId}:${source.version}:${source.scope}", target)
+
+				for (key in dependencyKeys)
+					if (target?.hasProperty(key) && !match(source."$key", target."$key"))
+						return false
+
+				return true
+			}
+
+			println '-------*------'
+			publishs.removeDependencies.each { dependency -> println dependency }
+			println '-------*------'
 			pom.dependencies.removeAll { dependency ->
+				println dependency
+
 				if (dependency.scope.contains('test'))
 					return true
-				for (removeDependency in publishs.removeDependecies) {
-					if (removeDependency instanceof Pattern || removeDependency instanceof String)
-						return match("${dependency.groupId}:${dependency.artifactId}:${dependency.version}:${dependency.scope}:", removeDependency)
 
-					if (removeDependency.groupId)
-						if (!match(dependency.groupId, removeDependency.groupId)) return false
-					if (removeDependency.artifactId)
-						if (!match(dependency.artifactId, removeDependency.artifactId)) return false
-					if (removeDependency.version)
-						if (!match(dependency.version, removeDependency.version)) return false
-					if (removeDependency.scope)
-						if (!match(dependency.scope, removeDependency.scope)) return false
+				for (removeDependency in publishs.removeDependencies)
+					return depMatch(dependency, removeDependency)
 
-					return true
-				}
+				return false
 			}
 		}
 

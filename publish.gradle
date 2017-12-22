@@ -43,7 +43,7 @@ project.ext {
 			],
 		],
 
-		removeDependecies: [
+		removeDependencies: [
 			'some.dep.group.to.remove:dep-art:dep-version',
 			'some.dep.group.to.remove:*:*',
 			'*:dep-art:*',
