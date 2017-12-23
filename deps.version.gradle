@@ -15,10 +15,10 @@ rootProject.ext {
 		],
 
 		hossainco    : [
-			rxbus2   : '1.0.0-alpha1',
-			liveevent: 'master-SNAPSHOT',//'1.0.0-alpha3'
-			prefkot  : '1.0.0-alpha1',
-			commonkotlin  : '1.0.0-alpha1',
+			rxbus2      : 'master-SNAPSHOT',//'1.0.0-alpha1',
+			liveevent   : 'master-SNAPSHOT',//'1.0.0-alpha3'
+			prefkot     : 'master-SNAPSHOT',//'1.0.0-alpha1',
+			commonkotlin: 'master-SNAPSHOT',//'1.0.0-alpha1',
 		],
 
 		bintray      : [
@@ -44,7 +44,7 @@ rootProject.ext {
 		arch         : [
 			version  : '1.0.0',
 			lifecycle: [
-				runtime        : '1.0.3',
+				runtime: '1.0.3',
 			],
 			room     : '1.0.0',
 			paging   : '1.0.0-alpha4-1',
