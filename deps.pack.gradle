@@ -24,6 +24,7 @@ rootProject.ext {
 			v4               : dep('com.android.support', 'support-v4', versions.support.version),
 			appcompat        : dep('com.android.support', 'appcompat-v7', versions.support.version),
 			design           : dep('com.android.support', 'design', versions.support.version),
+			fragment         : dep('com.android.support', 'support-fragment', versions.support.version),
 			vector_drawable  : dep('com.android.support', 'support-vector-drawable', versions.support.version),
 			constraint_layout: dep('com.android.constraint', 'constraint-layout', versions.support.version),
 
