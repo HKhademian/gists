@@ -23,40 +23,70 @@ install {
 			pom.packaging = isAndroidLibrary ? 'aar' : isAndroidApplication ? 'apk' : 'jar'
 
 			def match = { source, target ->
-				if (target instanceof Pattern)
-					return source ==~ target
-				if (target instanceof String)
+				println 'Check match: (((' + source + '))) vs (((' + target + ')))'
+
+				if (target instanceof CharSequence) {
+					println 'as String'
 					return source.equals(target) || source.contains(target)
+				}
+				if (target instanceof Pattern) {
+					println 'as Pattern'
+					return source ==~ target
+				}
 				return false
 			}
 			def dependencyKeys = ['groupId', 'artifactId', 'version', 'scope', 'type']
 
 			def depMatch = { source, target ->
-				if (target instanceof Pattern || target instanceof String)
-					return match("${source.groupId}:${source.artifactId}:${source.version}:${source.scope}", target)
+				println 'Check depMatch: (((' + source + '))) vs (((' + target + ')))'
 
+				if (target instanceof CharSequence || target instanceof Pattern) {
+					println 'it matches Pattern/String mode'
+					return match("${source.groupId}:${source.artifactId}:${source.version}:${source.scope}", target)
+				}
+
+				println 'it matches Object mode'
 				for (key in dependencyKeys)
-					if (target?.hasProperty(key) && !match(source."$key", target."$key"))
+					if (target?.hasProperty(key) && !match(source."$key", target."$key")) {
+						println "target.$key ${target[key]} is not matched with ${source[key]}"
 						return false
+					}
 
 				return true
 			}
 
-			println '-------*------'
+			println '-------*-------'
+			println '-------*publishs.removeDependencies-------'
+			println '-------*-------'
 			publishs.removeDependencies.each { dependency -> println dependency }
-			println '-------*------'
+			println '-------*-------'
+			println '-------pom.dependencies-------'
+			println '-------*-------'
+			pom.dependencies.each { dependency -> println dependency }
+			println '-------*-------'
+			println '-------*-------'
+			println '-------*-------'
 			pom.dependencies.removeAll { dependency ->
-				println dependency
+				println 'Check matching pom.dependency: (((' + dependency + ')))'
 
-				if (dependency.scope.contains('test'))
+				if (dependency.scope.contains('test')) {
+					println 'it is a test :('
 					return true
+				}
 
 				for (removeDependency in publishs.removeDependencies)
-					return depMatch(dependency, removeDependency)
+					if (depMatch(dependency, removeDependency)) {
+						println 'it matches :)))'
+						return true
+					}
 
+				println 'it passed ;('
 				return false
 			}
 		}
+		println '-------*-------'
+		println '-------*-------'
+		println '-------*-------'
 
 		pom.project {
 			packaging isAndroidLibrary ? 'arr' : isAndroidApplication ? 'apk' : 'jar'
