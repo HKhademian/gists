@@ -22,9 +22,10 @@ rootProject.ext {
 		junit        : implementation(packs.junit),
 
 		hossainco    : [
-			rxbus2   : implementation(packs.hossainco.rxbus2),
-			liveevent: implementation(packs.hossainco.liveevent),
-			prefkot  : implementation(packs.hossainco.prefkot),
+			rxbus2      : implementation(packs.hossainco.rxbus2),
+			liveevent   : implementation(packs.hossainco.liveevent),
+			prefkot     : implementation(packs.hossainco.prefkot),
+			commonkotlin: implementation(packs.hossainco.commonkotlin),
 		],
 
 		bintray      : [
