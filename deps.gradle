@@ -82,7 +82,7 @@ rootProject.ext {
 			room     : [
 				runtime : implementation(packs.arch.room.runtime),
 				rxjava2 : implementation(packs.arch.room.rxjava2),
-				compiler: implementation(packs.arch.room.compiler),
+				compiler: kapt(packs.arch.room.compiler),
 				testing : implementation(packs.arch.room.testing),
 			],
 
