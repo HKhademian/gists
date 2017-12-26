@@ -102,5 +102,13 @@ rootProject.ext {
 			databinding    : dep('com.benoitquenaudon', 'rxdatabinding', versions.rx2.databinding),
 		],
 
+		conductor  : [
+			dep          : dep('com.bluelinelabs', 'conductor', versions.conductor),
+			support      : dep('com.bluelinelabs', 'conductor-support', versions.conductor),
+			rxlifecycle  : dep('com.bluelinelabs', 'conductor-rxlifecycle', versions.conductor),
+			rxlifecycle2 : dep('com.bluelinelabs', 'conductor-rxlifecycle2', versions.conductor),
+			autodispose  : dep('com.bluelinelabs', 'conductor-autodispose', versions.conductor),
+			archlifecycle: dep('com.bluelinelabs', 'conductor-archlifecycle', versions.conductor),
+		],
 	]
 }

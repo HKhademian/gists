@@ -4,22 +4,25 @@ rootProject.ext {
 	def classpath = { pack -> { -> project.buildscript.dependencies.classpath pack } }
 	def packs = depsPack
 
-	def add = { String confDef ->
+	def add = { String defConfig, String defVariant ->
 		{ pack ->
 			{ String variant = null, String config = null ->
-				def conf = config ? config : confDef
-				def confer = variant != null && variant.length() > 0 ? variant + conf.capitalize() : conf
-				project.dependencies.add confer, pack
+				def var = variant ? variant : defVariant
+				def conf = config ? config : defConfig
+				def configuration = var ? var + conf.capitalize() : conf
+				project.dependencies.add configuration, pack
 			}
 		}
 	}
-	def implementation = add 'implementation'
-	def kapt = add 'kapt'
+	def implementation = add 'implementation', null
+	def testImplementation = add 'implementation', 'test'
+	def androidTestImplementation = add 'implementation', 'androidTest'
+	def kapt = add 'kapt', null
 
 	deps = [
 		build_gradle : classpath(packs.build_gradle),
 		android_maven: classpath(packs.android_maven),
-		junit        : implementation(packs.junit),
+		junit        : testImplementation(packs.junit),
 
 		hossainco    : [
 			rxbus2      : implementation(packs.hossainco.rxbus2),
@@ -41,9 +44,9 @@ rootProject.ext {
 			constraint_layout: implementation(packs.support.constraint_layout),
 
 			test             : [
-				runner  : implementation(packs.support.test.runner),
+				runner  : androidTestImplementation(packs.support.test.runner),
 				espresso: [
-					core: implementation(packs.support.test.espresso.core),
+					core: androidTestImplementation(packs.support.test.espresso.core),
 				],
 			],
 		],
@@ -65,7 +68,7 @@ rootProject.ext {
 		/** Android Architecture Libraries: https://developer.android.com/topic/libraries/architecture */
 		arch         : [
 			core     : [
-				testing: implementation(packs.arch.core.testing),
+				testing: androidTestImplementation(packs.arch.core.testing),
 			],
 			/* LifeCycle: https://developer.android.com/topic/libraries/architecture/lifecycle.html */
 			lifecycle: [
@@ -83,7 +86,7 @@ rootProject.ext {
 				runtime : implementation(packs.arch.room.runtime),
 				rxjava2 : implementation(packs.arch.room.rxjava2),
 				compiler: kapt(packs.arch.room.compiler),
-				testing : implementation(packs.arch.room.testing),
+				testing : androidTestImplementation(packs.arch.room.testing),
 			],
 
 			/* Paging: https://developer.android.com/topic/libraries/architecture/paging.html */
@@ -113,6 +116,16 @@ rootProject.ext {
 			downloader     : implementation(packs.rx2.downloader),
 			/* RxDataBinding: https://github.com/oldergod/RxDataBinding */
 			databinding    : implementation(packs.rx2.databinding),
+		],
+
+		/** Conductor: https://github.com/bluelinelabs/Conductor */
+		conductor    : [
+			dep          : implementation(packs.conductor.dep),
+			support      : implementation(packs.conductor.support),
+			rxlifecycle  : implementation(packs.conductor.rxlifecycle),
+			rxlifecycle2 : implementation(packs.conductor.rxlifecycle2),
+			autodispose  : implementation(packs.conductor.autodispose),
+			archlifecycle: implementation(packs.conductor.archlifecycle),
 		],
 
 	]

@@ -62,5 +62,6 @@ rootProject.ext {
 			databinding    : '2.0.0',
 		],
 
+		'conductor' : '2.1.4',
 	]
 }
