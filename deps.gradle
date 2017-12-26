@@ -1,4 +1,4 @@
-apply from: 'https://raw.githubusercontent.com/HossainCo/gists/master/deps.pack.gradle'
+apply from: 'https://raw.githubusercontent.com/HossainCo/gists/snapshot/deps.pack.gradle'
 
 rootProject.ext {
 	def classpath = { pack -> { -> project.buildscript.dependencies.classpath pack } }
