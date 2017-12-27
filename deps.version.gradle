@@ -18,7 +18,7 @@ rootProject.ext {
 		hossainco    : [
 			rxbus2      : '0.1.3',
 			liveevent   : '0.1.4',
-			prefkot     : '1.0.0-alpha1',
+			prefkot     : '0.1.3',
 			commonkotlin: '0.1.2',
 		],
 
