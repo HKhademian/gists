@@ -1,0 +1,37 @@
+image: openjdk:8-jdk
+
+before_script:
+  - apt-get --quiet update --yes
+  - chmod +x ./gradlew
+
+cache:
+  key: "$CI_COMMIT_REF_NAME"
+  paths:
+    - .m2
+    - .gradle/wrapper
+    - .gradle/caches
+
+stages:
+  - build
+  - package
+  - test
+
+build:
+  stage: build
+  script:
+    - ./gradlew --no-daemon --stacktrace build
+  artifacts:
+    paths:
+      - build/outputs/
+      - build/libs/
+      - build/poms/
+
+install:
+  stage: package
+  script:
+    - ./gradlew --no-daemon --stacktrace install
+  artifacts:
+    paths:
+      - build/outputs/
+      - build/libs/
+      - build/poms/
