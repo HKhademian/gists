@@ -16,10 +16,10 @@ rootProject.ext {
 		],
 
 		hossainco    : [
-			rxbus2      : 'master-SNAPSHOT',//'1.0.0-alpha1',
-			liveevent   : 'master-SNAPSHOT',//'1.0.0-alpha3'
-			prefkot     : 'master-SNAPSHOT',//'1.0.0-alpha1',
-			commonkotlin: 'master-SNAPSHOT',//'1.0.0-alpha1',
+			rxbus2      : '0.1.3',
+			liveevent   : '0.1.4',
+			prefkot     : '1.0.0-alpha1',
+			commonkotlin: '1.0.0-alpha1',
 		],
 
 		bintray      : [
