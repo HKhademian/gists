@@ -1,4 +1,4 @@
-apply from: 'https://raw.githubusercontent.com/HossainCo/gists/snapshot/deps.version.gradle'
+apply from: 'https://raw.githubusercontent.com/HossainCo/gists/master/deps.version.gradle'
 
 rootProject.ext {
 	def dep = { group, artifact, version -> "$group:$artifact:$version" }
