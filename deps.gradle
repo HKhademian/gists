@@ -57,12 +57,21 @@ rootProject.ext {
 
 			anko         : [
 				dep              : implementation(packs.kotlin.anko.dep),
-				coroutines       : implementation(packs.kotlin.anko.coroutines),
+				support_v4       : implementation(packs.kotlin.anko.support_v4),
 				appcompat        : implementation(packs.kotlin.anko.appcompat),
+				recyclerview     : implementation(packs.kotlin.anko.recyclerview),
+				constraint_layout: implementation(packs.kotlin.anko.constraint_layout),
 				design           : implementation(packs.kotlin.anko.design),
 				design_coroutines: implementation(packs.kotlin.anko.design_coroutines),
-				support_v4       : implementation(packs.kotlin.anko.support_v4),
-			]
+				coroutines       : implementation(packs.kotlin.anko.coroutines),
+
+				commons          : implementation(packs.kotlin.anko.commons),
+				sdk15            : implementation(packs.kotlin.anko.sdk15),
+				sdk19            : implementation(packs.kotlin.anko.sdk19),
+				sdk21            : implementation(packs.kotlin.anko.sdk21),
+				sdk23            : implementation(packs.kotlin.anko.sdk23),
+				sdk25            : implementation(packs.kotlin.anko.sdk25),
+			],
 		],
 
 		/** Android Architecture Libraries: https://developer.android.com/topic/libraries/architecture */
