@@ -42,11 +42,20 @@ rootProject.ext {
 
 			anko         : [
 				dep              : dep('org.jetbrains.anko', 'anko', versions.kotlin.anko),
-				coroutines       : dep('org.jetbrains.anko', 'anko-coroutines', versions.kotlin.anko),
-				appcompat        : dep('org.jetbrains.anko', 'anko-appcompat', versions.kotlin.anko),
+				support_v4       : dep('org.jetbrains.anko', 'anko-support-v4', versions.kotlin.anko),
+				appcompat        : dep('org.jetbrains.anko', 'anko-appcompat-v7', versions.kotlin.anko),
+				recyclerview     : dep('org.jetbrains.anko', 'anko-recyclerview-v7', versions.kotlin.anko),
+				constraint_layout: dep('org.jetbrains.anko', 'anko-constraint-layout', versions.kotlin.anko),
 				design           : dep('org.jetbrains.anko', 'anko-design', versions.kotlin.anko),
 				design_coroutines: dep('org.jetbrains.anko', 'anko-design-coroutines', versions.kotlin.anko),
-				support_v4       : dep('org.jetbrains.anko', 'anko-support-v4', versions.kotlin.anko),
+				coroutines       : dep('org.jetbrains.anko', 'anko-coroutines', versions.kotlin.anko),
+
+				commons          : dep('org.jetbrains.anko', 'anko-commons', versions.kotlin.anko),
+				sdk15            : dep('org.jetbrains.anko', 'anko-sdk15', versions.kotlin.anko),
+				sdk19            : dep('org.jetbrains.anko', 'anko-sdk19', versions.kotlin.anko),
+				sdk21            : dep('org.jetbrains.anko', 'anko-sdk21', versions.kotlin.anko),
+				sdk23            : dep('org.jetbrains.anko', 'anko-sdk23', versions.kotlin.anko),
+				sdk25            : dep('org.jetbrains.anko', 'anko-sdk25', versions.kotlin.anko),
 			]
 		],
 
@@ -102,7 +111,7 @@ rootProject.ext {
 			databinding    : dep('com.benoitquenaudon', 'rxdatabinding', versions.rx2.databinding),
 		],
 
-		conductor  : [
+		conductor    : [
 			dep          : dep('com.bluelinelabs', 'conductor', versions.conductor),
 			support      : dep('com.bluelinelabs', 'conductor-support', versions.conductor),
 			rxlifecycle  : dep('com.bluelinelabs', 'conductor-rxlifecycle', versions.conductor),
