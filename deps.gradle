@@ -38,6 +38,8 @@ rootProject.ext {
 		support      : [
 			v4               : implementation(packs.support.v4),
 			appcompat        : implementation(packs.support.appcompat),
+			cardview         : implementation(packs.support.cardview),
+			recyclerview     : implementation(packs.support.recyclerview),
 			design           : implementation(packs.support.design),
 			fragment         : implementation(packs.support.fragment),
 			vector_drawable  : implementation(packs.support.vector_drawable),
@@ -143,5 +145,8 @@ rootProject.ext {
 			archlifecycle: implementation(packs.conductor.archlifecycle),
 		],
 
+		facebook     : [
+			stetho: implementation(packs.facebook.stetho),
+		]
 	]
 }

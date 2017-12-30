@@ -62,6 +62,10 @@ rootProject.ext {
 			databinding    : '2.0.0',
 		],
 
-		'conductor' : '2.1.4',
+		'conductor'  : '2.1.4',
+
+		facebook     : [
+			stetho: '1.5.0',
+		]
 	]
 }
