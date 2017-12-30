@@ -25,6 +25,7 @@ rootProject.ext {
 		junit        : testImplementation(packs.junit),
 
 		hossainco    : [
+			commons     : implementation(packs.hossainco.commons),
 			rxbus2      : implementation(packs.hossainco.rxbus2),
 			liveevent   : implementation(packs.hossainco.liveevent),
 			prefkot     : implementation(packs.hossainco.prefkot),

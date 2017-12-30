@@ -16,6 +16,7 @@ rootProject.ext {
 		],
 
 		hossainco    : [
+			commons     : '0.1.4',
 			rxbus2      : '0.1.3',
 			liveevent   : '0.1.4',
 			prefkot     : '0.1.3',
