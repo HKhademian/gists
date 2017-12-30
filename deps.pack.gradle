@@ -10,6 +10,7 @@ rootProject.ext {
 		junit        : dep('junit', 'junit', versions.junit),
 
 		hossainco    : [
+			commons     : dep('com.github.HossainCo', 'Commons', versions.hossainco.commons),
 			rxbus2      : dep('com.github.HossainCo', 'RxBus2', versions.hossainco.rxbus2),
 			liveevent   : dep('com.github.HossainCo', 'LiveEvent', versions.hossainco.liveevent),
 			prefkot     : dep('com.github.HossainCo', 'PrefKot', versions.hossainco.prefkot),

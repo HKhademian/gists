@@ -16,6 +16,7 @@ rootProject.ext {
 		],
 
 		hossainco    : [
+			commons     : 'master-SNAPSHOT',
 			rxbus2      : 'master-SNAPSHOT',
 			liveevent   : 'master-SNAPSHOT',
 			prefkot     : 'master-SNAPSHOT',
