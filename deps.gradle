@@ -1,6 +1,6 @@
 apply from: 'https://raw.githubusercontent.com/HossainCo/gists/snapshot/deps.pack.gradle'
 
-rootProject.ext {
+rootProject.buildscript { ext {
 	def classpath = { pack -> { -> project.buildscript.dependencies.classpath pack } }
 	def packs = depsPack
 
@@ -150,4 +150,4 @@ rootProject.ext {
 			stetho: implementation(packs.facebook.stetho),
 		]
 	]
-}
+} }
