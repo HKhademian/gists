@@ -1,4 +1,4 @@
-rootProject.ext {
+rootProject.buildscript { ext {
 	depsVersion = [
 		compile_sdk  : 27,
 		build_tools  : '27.0.3',
@@ -69,4 +69,4 @@ rootProject.ext {
 			stetho: '1.5.0',
 		]
 	]
-}
+} }

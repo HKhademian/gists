@@ -1,6 +1,6 @@
 apply from: 'https://raw.githubusercontent.com/HossainCo/gists/master/deps.version.gradle'
 
-rootProject.ext {
+rootProject.buildscript { ext {
 	def dep = { group, artifact, version -> "$group:$artifact:$version" }
 	def versions = depsVersion
 
@@ -133,4 +133,4 @@ rootProject.ext {
 			stetho: dep('com.facebook.stetho', 'stetho', versions.facebook.stetho),
 		],
 	]
-}
+} }
