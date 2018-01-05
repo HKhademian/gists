@@ -1,19 +1,20 @@
-rootProject.buildscript { ext {
-	depsVersion = [
-		compile_sdk  : 27,
-		build_tools  : '27.0.3',
-		min_sdk      : 14,
-		target_sdk   : 27,
-		junit        : '4.12',
+rootProject.buildscript {
+	ext {
+		depsVersion = [
+			compile_sdk  : 27,
+			build_tools  : '27.0.3',
+			min_sdk      : 14,
+			target_sdk   : 27,
+			junit        : '4.12',
 
-		build_gradle : '3.1.0-alpha04',
-		android_maven: '2.0',
+			build_gradle : '3.1.0-alpha04',
+			android_maven: '2.0',
 
-		compatibility: [
-			target: JavaVersion.VERSION_1_8,
-			source: JavaVersion.VERSION_1_8,
-			kotlin: JavaVersion.VERSION_1_8,
-		],
+			compatibility: [
+				target: JavaVersion.VERSION_1_8,
+				source: JavaVersion.VERSION_1_8,
+				kotlin: JavaVersion.VERSION_1_8,
+			],
 
 		hossainco    : [
 			commons     : '0.1.4',
@@ -23,50 +24,53 @@ rootProject.buildscript { ext {
 			commonkotlin: '0.1.2',
 		],
 
-		bintray      : [
-			version: '1.7.3',
-		],
+			bintray      : [
+				version: '1.7.3',
+			],
 
-		support      : [
-			version          : '27.0.2',
-			constraint_layout: '1.0.2',
-			test             : [
-				runner  : '1.0.1',
-				espresso: [
-					core: '3.0.1',
+			support      : [
+				version          : '27.0.2',
+				constraint_layout: '1.0.2',
+				test             : [
+					runner  : '1.0.1',
+					espresso: [
+						core: '3.0.1',
+					],
 				],
 			],
-		],
 
-		kotlin       : [
-			version: '1.2.10',
-			anko   : '0.10.4',
-		],
-
-		arch         : [
-			version  : '1.0.0',
-			lifecycle: [
-				runtime: '1.0.3',
+			kotlin       : [
+				version: '1.2.10',
+				anko   : '0.10.4',
 			],
-			room     : '1.0.0',
-			paging   : '1.0.0-alpha4-1',
-		],
 
-		rx2          : [
-			java           : '2.1.7',
-			kotlin         : '2.1.0',
-			android        : '2.0.1',
-			binding        : '2.0.0',
+			arch         : [
+				version  : '1.0.0',
+				lifecycle: [
+					runtime: '1.0.3',
+				],
+				room     : '1.0.0',
+				paging   : '1.0.0-alpha4-1',
+			],
 
-			reactivenetwork: '0.12.2',
-			downloader     : '0.3',
-			databinding    : '2.0.0',
-		],
+			rx2          : [
+				java           : '2.1.7',
+				kotlin         : '2.1.0',
+				android        : '2.0.1',
+				binding        : '2.0.0',
 
-		'conductor'  : '2.1.4',
+				reactivenetwork: '0.12.2',
+				downloader     : '0.3',
+				databinding    : '2.0.0',
+			],
 
-		facebook     : [
-			stetho: '1.5.0',
+			facebook     : [
+				stetho: '1.5.0',
+			],
+
+			conductor    : '2.1.4',
+
+			funktionale  : '1.2',
 		]
-	]
-} }
+	}
+}
