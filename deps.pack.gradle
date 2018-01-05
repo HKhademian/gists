@@ -124,6 +124,10 @@ rootProject.buildscript {
 				databinding    : dep('com.benoitquenaudon', 'rxdatabinding', versions.rx2.databinding),
 			],
 
+			facebook     : [
+				stetho: dep('com.facebook.stetho', 'stetho', versions.facebook.stetho),
+			],
+
 			conductor    : [
 				dep          : dep('com.bluelinelabs', 'conductor', versions.conductor),
 				support      : dep('com.bluelinelabs', 'conductor-support', versions.conductor),
@@ -133,9 +137,7 @@ rootProject.buildscript {
 				archlifecycle: dep('com.bluelinelabs', 'conductor-archlifecycle', versions.conductor),
 			],
 
-			facebook     : [
-				stetho: dep('com.facebook.stetho', 'stetho', versions.facebook.stetho),
-			],
+			funktionale  : dep('org.funktionale', 'funktionale-all', versions.funktionale),
 		]
 	}
 }

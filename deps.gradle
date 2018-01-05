@@ -142,6 +142,10 @@ rootProject.buildscript {
 				databinding    : implementation(packs.rx2.databinding),
 			],
 
+			facebook     : [
+				stetho: implementation(packs.facebook.stetho),
+			],
+
 			/** Conductor: https://github.com/bluelinelabs/Conductor */
 			conductor    : [
 				dep          : implementation(packs.conductor.dep),
@@ -152,9 +156,7 @@ rootProject.buildscript {
 				archlifecycle: implementation(packs.conductor.archlifecycle),
 			],
 
-			facebook     : [
-				stetho: implementation(packs.facebook.stetho),
-			]
+			funktionale  : implementation(packs.funktionale),
 		]
 	}
 }
