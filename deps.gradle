@@ -59,7 +59,13 @@ rootProject.buildscript {
 
 			kotlin       : [
 				gradle_plugin: classpath(packs.kotlin.gradle_plugin),
-				stdlib       : implementation(packs.kotlin.stdlib),
+				stdlib       : [
+					dep   : implementation(packs.kotlin.stdlib.dep),
+					jre7   : implementation(packs.kotlin.stdlib.jre7),
+					jre8   : implementation(packs.kotlin.stdlib.jre8),
+					common: implementation(packs.kotlin.stdlib.common),
+					jvm   : implementation(packs.kotlin.stdlib.jvm),
+				],
 				test         : [
 					junit: testImplementation(packs.kotlin.test.junit),
 				],
